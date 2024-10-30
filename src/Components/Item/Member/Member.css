@@ -1,0 +1,264 @@
+.MemberComponent {
+  box-sizing: border-box;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../Assets/Img/dragon5.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 4px solid #422e2d;
+  border-radius: 15px;
+  background-color: #ffffff93;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+/* ------------------------------------> thẻ thành viên */
+.memberquantity {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.memberImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.memberImage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ----------------------------------->member quantity */
+.memberquantityTotal {
+  padding: 10px;
+}
+
+.memberquantity1 {
+  background-image: url("../../../assets/img/nodeImg1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 50px;
+  padding: 0 20px;
+}
+
+/* -----------------------------------> member status */
+
+.memberStatus {
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  border-radius: 100%;
+}
+
+/* --------------------------------------> member Content */
+
+.memberContentHero {
+  display: grid;
+  grid-template-rows: 80% 20%; /* Chia hàng theo tỷ lệ 70-30 */
+  border: 2px solid #422e2d;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+/* --------------------------------------> member Comment */
+.memberContent {
+  display: flex;
+
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.858);
+  border-radius: 20px;
+}
+
+.memberComment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #422e2d;
+  border-radius: 20px;
+  padding: 5px;
+  height: 30px;
+}
+
+.memberCommentForm {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.memberCommentForm > input {
+  height: 20px;
+  width: 90%;
+  font-size: 15px;
+  outline: none;
+  border: none;
+  background-color: #422e2d00;
+  border-bottom: 1px solid black;
+}
+
+.btnCommentForm {
+  border: none;
+  background-color: #422e2d00;
+  cursor: pointer;
+}
+
+.imgShowTotal {
+  display: flex;
+}
+
+.imgShow {
+  position: relative;
+  width: 55px;
+  height: 55px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.imgShow > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.imgDelete {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.imgDelete > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.showComment {
+  display: flex;
+  max-height: 460px; /* Chiều cao tối đa cho div trên */
+  overflow-y: scroll; /* Cho phép cuộn dọc nếu nội dung vượt quá chiều cao */
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  border-radius: 20px;
+  padding: 2px;
+}
+
+.showComment::-webkit-scrollbar {
+  display: none; /* Ẩn thanh cuộn */
+}
+
+.Comment {
+  border: 2px solid #422e2d;
+  border-radius: 15px;
+  background-color: white;
+  padding: 10px;
+}
+
+.imgComment {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background-color: #cdd3d3;
+  border-radius: 10px;
+  padding: 5px 5px;
+}
+
+.imgComment > img {
+  width: 80px;
+  object-fit: cover;
+}
+
+.userComment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.imgAvataruserComent {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.imgAvataruserComent > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.btnLike {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.btnLike > button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.numberOfLikes {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.numberOfLikes > p {
+  margin: 5px;
+}
+
+.CommentTitel {
+  background-color: #f0f2f5;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+.CommentTitel1 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.CommentTitel2 {
+  padding-left: 35px;
+}
+
+.CommentTitel2 > p {
+  margin: 5px;
+}
+
+.showCommentAvartar {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.showCommentAvartar > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

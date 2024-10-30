@@ -1,0 +1,300 @@
+.HeaderLayout {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1.5fr 5fr 1.5fr;
+  align-items: center;
+  height: 200px;
+}
+
+.HeaderImage {
+  background-image: url("../../assets/Img/backgroud2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 200px;
+}
+
+.HeaderImage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.HeaderContent {
+  box-sizing: border-box;
+  position: relative;
+  background-image: url("../../assets/Img/backgroud4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 5px solid #422e2d;
+  border-right: 5px solid #422e2d;
+}
+
+.HeaderContentText {
+  text-align: center;
+}
+
+.HeaderContentText p {
+  margin: 10px;
+}
+
+.HeaderContentText p:nth-child(1) {
+  font-size: 30px;
+  color: red;
+}
+
+.HeaderContentText p:nth-child(2) {
+  font-size: 50px;
+  color: red;
+}
+
+.HeaderContentText p:nth-child(3) {
+  font-size: 20px;
+  color: red;
+}
+
+.HeaderConer1 {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 60px;
+  height: 60px;
+}
+
+.HeaderConer1 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.HeaderConer2 {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  width: 60px;
+  height: 60px;
+}
+
+.HeaderConer2 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.HeaderConer3 {
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  width: 60px;
+  height: 60px;
+}
+
+.HeaderConer3 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.HeaderConer4 {
+  position: absolute;
+  bottom: 3px;
+  left: 5px;
+  width: 60px;
+  height: 60px;
+}
+
+.HeaderConer4 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .HeaderContentText p:nth-child(1) {
+    font-size: 25px;
+    color: red;
+  }
+
+  .HeaderContentText p:nth-child(2) {
+    font-size: 40px;
+    color: red;
+  }
+
+  .HeaderContentText p:nth-child(3) {
+    font-size: 20px;
+    color: red;
+  }
+
+  .HeaderImage.box1 > img {
+    content: url("/src/assets/img/lotus5.png");
+  }
+
+  .HeaderImage.box3 > img {
+    content: url("/src/assets/img/lotus4.png");
+  }
+
+  .HeaderConer1 {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .HeaderConer2 {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .HeaderConer3 {
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .HeaderConer4 {
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .HeaderContentText p:nth-child(1) {
+    font-size: 25px;
+    color: red;
+  }
+
+  .HeaderContentText p:nth-child(2) {
+    font-size: 30px;
+    color: red;
+  }
+
+  .HeaderContentText p:nth-child(3) {
+    font-size: 18px;
+    color: red;
+  }
+
+  .HeaderConer1 {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .HeaderConer2 {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .HeaderConer3 {
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .HeaderConer4 {
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 490px) {
+  .HeaderContentText p:nth-child(1) {
+    font-size: 20px;
+    color: red;
+  }
+
+  .HeaderContentText p:nth-child(2) {
+    font-size: 30px;
+    color: red;
+  }
+
+  .HeaderContentText p:nth-child(3) {
+    font-size: 18px;
+    color: red;
+  }
+}
+
+/* form tạo header */
+.formGenelogyHero {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.533);
+  z-index: 20;
+}
+
+.formGenelogy {
+  background-image: url("../../assets/img/nodeImg1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 300px;
+  border: 1px solid red;
+  background-color: #422e2d;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  border: 3px solid #422e2d;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.formGenelogy > form {
+  margin: 30px 20px;
+}
+
+.formGenealogy1 {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+
+.inputformGenelogy > input {
+  width: 100%;
+  font-size: 15px;
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: #422e2d00;
+  outline: none;
+}
+
+.btnSupmitForm {
+  margin: 20px 0px 0 0;
+  text-align: center;
+}
+.btnSupmitForm button {
+  border: none;
+  background-color: rgba(255, 0, 0, 0);
+  color: #992c20;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.btnSupmitForm button:hover {
+  color: #e31d51;
+}

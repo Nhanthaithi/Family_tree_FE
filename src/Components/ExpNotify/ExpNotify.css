@@ -1,0 +1,66 @@
+.wrapper-exp {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+.modal-exp {
+  background-color: #fff;
+  width: 340px;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.2);
+}
+.expbtn {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-exp p {
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  color: #992c20;
+}
+
+.modal-exp a {
+  display: block;
+  padding: 10px 0;
+  color: #333;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  border: 2px solid black;
+  width: 75px;
+  border-radius: 5px;
+}
+
+.modal-exp a:hover {
+  color: rgb(111, 163, 33);
+  border-color: rgb(111, 163, 33);
+}
+
+#btnexplogout {
+  outline: none;
+  border: none;
+  font-size: 16px;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid #992c20;
+  color: #992c20;
+  width: 150px;
+  border-radius: 5px;
+}
+
+#btnexplogout:hover {
+  color: #e31d51;
+  border-color: #e31d51;
+}

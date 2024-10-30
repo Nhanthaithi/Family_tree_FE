@@ -1,0 +1,140 @@
+.registercomponent1 {
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.371);
+  border: 3px solid #992c20;
+  border-radius: 15px;
+  padding: 10px 0;
+}
+
+/* form */
+.registerform {
+  margin: 15px;
+}
+.registerform label {
+  color: #992c20;
+  font-size: 15px;
+}
+.registerform input {
+  width: 100%;
+  height: 25px;
+  margin: 8px 0;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-size: 15px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.btnregister button {
+  border: #ef4136;
+  background-color: rgba(255, 0, 0, 0);
+  color: #977d67;
+  font-size: 35px;
+  width: 210px;
+  height: 40px;
+  cursor: pointer;
+}
+.btnregister1 {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.btnregister button:hover {
+  color: #992c20;
+}
+.registerform span {
+  color: red;
+  font-family: "Rye";
+  font-size: 13px;
+}
+.gotohome {
+  color: #977d67;
+  font-size: 16px;
+  text-decoration: none;
+}
+.gotohome:hover {
+  text-decoration: underline;
+  color: #992c20;
+}
+.registerform1 {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.imageAvatar {
+  width: 80px;
+  height: 80px;
+}
+.imageAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 3px solid #977d67;
+  border-radius: 100%;
+}
+
+.totalformchooseavatar {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  margin-bottom: 5px;
+}
+
+#btnshowhide2 {
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 12px;
+  right: 5px;
+}
+
+#btnshowhide2 img {
+  width: 20px;
+  height: 20px;
+}
+
+.validateregister {
+  position: relative;
+}
+
+#avatar1 {
+  display: none;
+}
+
+#labelavatar1 {
+  color: black;
+  border: 2px solid #977d67;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#labelavatar2 {
+  margin-bottom: 5px;
+}
+
+.formchooseavatar {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnnextpage {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 424px) {
+  .registercomponent1 {
+    width: 330px;
+    background-color: rgba(255, 255, 255, 0.371);
+    border: 3px solid #992c20;
+    border-radius: 15px;
+    padding: 10px 0;
+  }
+
+  .totalformchooseavatar {
+    gap: 70px;
+  }
+}

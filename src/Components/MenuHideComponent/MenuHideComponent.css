@@ -1,0 +1,93 @@
+.menuShowAndHide {
+  width: 300px;
+  background-color: #cbc779;
+  border: 3px solid #422e2d;
+  border-radius: 10px;
+  position: relative;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px 0;
+  z-index: 999;
+  background-image: url("../../assets/Img/nodeImg1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.menuShowAndHide1 > a {
+  width: 200px;
+  height: 30px;
+  text-decoration: none;
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+  border-bottom: 3px solid black;
+  color: black;
+  padding-bottom: 5px;
+  font-size: 16px;
+}
+
+.menuShowAndHide1 > a:hover {
+  color: red;
+  border-bottom: 3px solid red;
+}
+
+.MenuConer11 {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.MenuConer11 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.MenuConer21 {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.MenuConer21 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.MenuConer31 {
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.MenuConer31 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.MenuConer41 {
+  position: absolute;
+  bottom: 3px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.MenuConer41 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

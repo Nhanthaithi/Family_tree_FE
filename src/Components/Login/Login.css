@@ -1,0 +1,150 @@
+.logincomponent1 {
+  box-sizing: border-box;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.371);
+  border: 3px solid #992c20;
+  border-radius: 15px;
+}
+
+/* form */
+.loginform {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 20px 5px 20px;
+}
+.loginform label {
+  color: #992c20;
+  width: 100%;
+  font-size: 25px;
+}
+
+.inputForm > input {
+  width: 100%;
+  height: 25px;
+  margin: 10px 0;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-size: 20px;
+  background-color: #ebe8e200;
+}
+
+#spanerror {
+  color: red;
+}
+
+.btnlogin {
+  margin: 5px 15px 0 15px;
+  text-align: center;
+}
+.btnlogin button {
+  border: none;
+  background-color: rgba(255, 0, 0, 0);
+  color: #992c20;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.btnlogin button:hover {
+  color: #e31d51;
+}
+
+.btngetcode {
+  margin: 25px 0;
+  text-align: center;
+}
+.btngetcode button {
+  border: none;
+  outline: none;
+  background-color: rgba(255, 0, 0, 0);
+  color: #992c20;
+  font-size: 30px;
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.btngetcode button:hover {
+  color: #e31d51;
+}
+
+.gotoregister {
+  font-size: 18px;
+  text-decoration: none;
+  color: #992c20;
+}
+.gotoregister:hover {
+  color: #e31d51;
+  text-decoration: underline;
+}
+.loginform1 {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+#btnshowhide1 {
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+
+#btnshowhide1 img {
+  width: 20px;
+  height: 20px;
+}
+
+.validatepassword {
+  position: relative;
+}
+
+.validatepassword > input {
+  width: 100%;
+  height: 25px;
+  margin: 10px 0;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-size: 20px;
+  background-color: #ebe8e200;
+}
+
+#forgotPassword {
+  border: none;
+  background-color: #977d6700;
+  font-size: 16px;
+  padding: 0;
+  color: #992c20;
+}
+
+#forgotPassword:hover {
+  color: #e31d51;
+  text-decoration: underline;
+}
+
+#inputemail::placeholder {
+  font-size: 15px;
+}
+
+#formgetcode {
+  font-size: 16px;
+  margin: 0 20px;
+  color: #e31d51;
+}
+
+@media (max-width: 424px) {
+  .logincomponent1 {
+    box-sizing: border-box;
+    width: 330px;
+    background-color: rgba(255, 255, 255, 0.371);
+    border: 3px solid #992c20;
+    border-radius: 15px;
+  }
+}

@@ -1,0 +1,315 @@
+.GenealogyLayout {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../Assets/Img/dragon5.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 4px solid #422e2d;
+  border-radius: 15px;
+  background-color: #ffffff93;
+}
+
+.react-flow__attribution a {
+  display: none;
+}
+
+.flowNode {
+  position: relative;
+}
+
+.flowNodeContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  gap: 5px;
+}
+
+.flowNodeContent > p:nth-child(1) {
+  margin: 0;
+}
+
+.flowNodeContent > p:nth-child(n + 2) {
+  margin: 0px;
+}
+
+.nodeImg5 {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: -8px;
+  left: -8px;
+}
+
+.nodeImg5 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nodeImg6 {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
+.nodeImg6 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nodeImg7 {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+}
+
+.nodeImg7 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nodeImg8 {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+}
+
+.nodeImg8 > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* nút add thêm node */
+.addNode {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  border: none;
+  background-color: rgba(255, 0, 0, 0);
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.addNode > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* form thêm node mới */
+.formAddNode {
+  background-image: url("../../../assets/img/nodeImg1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  width: 250px;
+  border: 3px solid #422e2d;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 10;
+}
+
+.formAddNodeContent {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  gap: 7px;
+}
+
+.formAddNodeContent > label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #992c20;
+}
+
+.formAddNodeContent > input {
+  height: 20px;
+  border: none;
+  background-color: #422e2d00;
+  border-bottom: 2px solid black;
+  outline: none;
+}
+
+.btnFormAddNode {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0;
+}
+
+.btnFormAddNode > button {
+  border: 2px solid #992c20;
+  border-radius: 10px;
+  background-color: #422e2d00;
+  color: #992c20;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.btnFormAddNode > button:hover {
+  color: #e31d51;
+  border: 2px solid #e31d51;
+}
+
+/* nút xóa egde(liên kết giữa các node) */
+.btnDeleteEdge {
+  position: absolute;
+  right: 190px;
+  top: 12px;
+  border: 2px solid #97060d;
+  border-radius: 10px;
+  background-color: #97060d;
+  color: white;
+  font-size: 15px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.btnDeleteEdge:hover {
+  border: 2px solid #37d98a;
+  background-color: #37d98a;
+}
+
+/* nút lưu dữ liệu */
+.btnSave {
+  position: absolute;
+  right: 60px;
+  top: 12px;
+  border: 2px solid #97060d;
+  border-radius: 10px;
+  background-color: #97060d;
+  color: white;
+  font-size: 15px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.btnSave:hover {
+  border: 2px solid #37d98a;
+  background-color: #37d98a;
+}
+
+/* nút xóa */
+.deleteNode {
+  position: absolute;
+  top: -30px;
+  right: -35px;
+  z-index: 10;
+  cursor: pointer;
+  border: none;
+  background-color: rgba(255, 0, 0, 0);
+}
+
+.deleteNode > img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+/* nút sửa */
+.editNode {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: -30px;
+  left: -30px;
+  z-index: 10;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  border-radius: 100%;
+}
+
+.editNode > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* nút trở về */
+.backHero {
+  margin: 15px 0 0 10px;
+}
+
+.btnBack {
+  width: 40px;
+  height: 40px;
+  background-color: #37d98b00;
+  border: none;
+  cursor: pointer;
+}
+
+.btnBack:hover {
+  filter: drop-shadow(0px 0px 3px #97060d);
+}
+
+.btnBack > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* form tùy chọn add 1 hoặc nhiều người */
+.ChooseAdd {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+.btnChooseAdd {
+  border: 2px solid #992c20;
+  border-radius: 10px;
+  background-color: #422e2d00;
+  color: #992c20;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.btnChooseAdd:hover {
+  border: 2px solid #37d98a;
+  color: #37d98a;
+}
+
+/* nút chọn file excel */
+.btnChooseFile {
+  box-sizing: border-box;
+  max-width: 230px;
+  margin: 10px 0px 40px 10px;
+}
+
+.inputChooseFile {
+  width: 100%;
+}
+
+.btnExcel {
+  border-bottom: 2px solid #992c20;
+  padding-bottom: 10px;
+}

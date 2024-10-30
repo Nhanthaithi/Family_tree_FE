@@ -1,0 +1,43 @@
+.EventLayout {
+  box-sizing: border-box;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../Assets/Img/dragon5.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 4px solid #422e2d;
+  border-radius: 15px;
+  background-color: #ffffff93;
+}
+
+.EventHero {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.eventTable {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.eventTable tr th {
+  border-bottom: 3px solid black;
+  padding-bottom: 10px;
+}
+
+.eventTable tr td {
+  border-bottom: 1px solid black;
+  padding: 5px 0;
+}
+
+tr:nth-child(even) td {
+  background-color: rgba(255, 255, 255, 0.67);
+}
+
+tr:nth-child(odd) td {
+  background-color: #dcdcdca7;
+}

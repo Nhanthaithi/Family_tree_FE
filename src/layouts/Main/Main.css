@@ -1,0 +1,18 @@
+body {
+  background-image: url("../../Assets/Img/backgroud.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+.layout-container {
+  box-sizing: border-box;
+}
+
+.layout-sidebar {
+  display: grid;
+  margin-top: 6px;
+  grid-template-columns: 1.5fr 5fr 1.5fr;
+  align-items: center;
+  gap: 5px;
+}
