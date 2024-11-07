@@ -137,4 +137,13 @@ export const images = {
   get Back() {
     return new URL("./back.png", import.meta.url).href;
   },
+  get Filter() {
+    return new URL("./filter.png", import.meta.url).href;
+  },
+  get Search() {
+    return new URL("./magnifying-glass.png", import.meta.url).href;
+  },
+  get testImg() {
+    return new URL("./testimg.jpg", import.meta.url).href;
+  },
 };

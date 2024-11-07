@@ -1,6 +1,6 @@
 //========================================> type menu ẩn
 export interface MenuItem {
-  name: string;
+  name: Date;
   path: string;
 }
 
@@ -60,4 +60,39 @@ export interface typeHeader {
   address?: string;
   nameBranch?: string;
   nameGenealogyTree?: string;
+}
+
+//========================================> type di chuyển của node
+export interface typeMoveNode {
+  id?: string; // Cho phép id có thể không tồn tại
+  position: {
+    x: number | string;
+    y: number | string;
+  };
+}
+
+//========================================> type get sỗ quỹ
+export interface typeCashTraking {
+  currentYear?: number;
+  records?: [
+    {
+      id?: number;
+      dayCash?: Date;
+      description: string;
+      money?: string;
+      selectCash?: number;
+    }
+  ];
+  totalIncome?: string;
+  totalExpense?: string;
+  actualBalance?: number;
+  startDate?: string;
+  endDate?: string;
+  totalsFilter?: { totalIncome?: string; totalExpense?: string };
+}
+
+//========================================> type lọc ngày
+export interface typeCashSearch {
+  startDate?: string;
+  endDate?: string;
 }

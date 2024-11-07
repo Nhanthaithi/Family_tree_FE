@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import ExpNotify from "../ExpNotify/ExpNotify";
 
 const RequireAuth: React.FC = () => {
   const token: any = localStorage.getItem("accessToken");
   const [exp, setExp] = useState(false);
-  const navigate = useNavigate();
   useEffect(() => {
     try {
       const date = new Date();
@@ -18,7 +17,7 @@ const RequireAuth: React.FC = () => {
         setExp(true);
       }
     } catch (error) {
-      navigate("/auth/login");
+      setExp(false);
     }
   }, []);
 

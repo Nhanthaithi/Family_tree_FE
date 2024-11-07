@@ -298,3 +298,41 @@
 .btnSupmitForm button:hover {
   color: #e31d51;
 }
+
+/* edit header */
+.btnEditHeader {
+  width: 35px;
+  height: 35px;
+  background-color: #ffffff;
+  border: 2px solid #422e2d;
+  border-radius: 100%;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.btnEditHeader > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* đóng form edit */
+
+.CloseformGenelogy {
+  width: 35px;
+  height: 35px;
+  background-color: #ffffff00;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: -35px;
+  right: -35px;
+}
+
+.CloseformGenelogy > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

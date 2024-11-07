@@ -163,6 +163,7 @@
   font-weight: 700;
   padding: 5px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .btnFormAddNode > button:hover {

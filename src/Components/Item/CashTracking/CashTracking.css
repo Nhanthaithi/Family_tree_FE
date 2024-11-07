@@ -1,5 +1,6 @@
 .cashTracking {
   box-sizing: border-box;
+  position: relative;
   padding: 15px;
   width: 100%;
   height: 100%;
@@ -20,6 +21,9 @@
 .cashLish {
   display: flex;
   justify-content: space-around;
+  margin: 10px 5px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.931);
   font-weight: 400px;
 }
 
@@ -45,4 +49,192 @@ tr:nth-child(even) td {
 
 tr:nth-child(odd) td {
   background-color: #dcdcdca7;
+}
+
+/* nút tìm kiếm */
+
+.btnSearch {
+  width: 50px;
+  height: 35px;
+  background-color: #422e2d00;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btnSearch:hover {
+  filter: drop-shadow(0px 0px 3px #97060d);
+}
+
+.btnSearch > img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* nút thêm */
+.CashTrackingAdd {
+  position: absolute;
+  right: 10px;
+}
+
+.btnCashTrackingAdd {
+  width: 33px;
+  height: 33px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: #422e2d00;
+}
+
+.btnCashTrackingAdd > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.formAddCashTraking {
+  background-image: url("../../../assets/img/nodeImg1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  width: 250px;
+  border: 3px solid #422e2d;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 10;
+}
+
+/* form */
+.formCashtraking {
+  margin-top: 35px;
+}
+
+/*  nut sửa */
+.btnEdit {
+  padding: 2px 5px;
+  margin: 0 5px;
+  border: 2px solid green;
+  border-radius: 10px;
+  color: green;
+  background-color: #422e2d00;
+  cursor: pointer;
+}
+
+.btnEdit:hover {
+  background-color: green;
+  color: rgb(255, 255, 255);
+}
+
+/* nut xóa */
+
+.btnDelete {
+  padding: 2px 5px;
+  margin: 0 5px;
+  border: 2px solid red;
+  border-radius: 10px;
+  color: red;
+  background-color: #422e2d00;
+  cursor: pointer;
+}
+
+.btnDelete:hover {
+  background-color: red;
+  color: rgb(255, 255, 255);
+}
+
+/* ô chọn */
+.selectCash {
+  border: 2px solid black;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* filter */
+.filterCashHero {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.filterCash {
+  width: 35px;
+  height: 35px;
+}
+
+.filterCash > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.chooseFilter {
+  border: none;
+  display: flex;
+  gap: 10px;
+  border-bottom: 2px solid black;
+}
+
+.chooseFilter > input {
+  border: none;
+  background-color: #422e2d00;
+  border-radius: 5px;
+  outline: none;
+}
+
+.errorFilter {
+  margin-left: 55px;
+}
+
+/* ô hiển thị thu chi theo lọc */
+
+.cashLishFilter {
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.cashLishFilter p {
+  margin: 3px;
+}
+
+/* phân trang */
+
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0px;
+  margin: 10px 0;
+}
+.pagination li {
+  margin: 0 10px;
+}
+
+.pagination__link {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
+
+.pagination__link--active {
+  border: 1px solid red;
+  border-radius: 5px;
+  color: black;
+  padding: 0 5px;
+}
+
+.pagination__link--disabled {
+  cursor: not-allowed;
+}
+
+.CustomPagination {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }

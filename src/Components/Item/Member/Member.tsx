@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Member.css";
 import { images } from "../../../assets/img/img";
 
 const MemberComponent: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<string[]>([]);
+  const [imageAvartar, setImageAvartar] = useState("");
+  // =======================================================================> test hình ảnh thể hiện
+  const dataImg = [
+    { src: images.testImg },
+    { src: images.testImg },
+    { src: images.backgroud4 },
+    { src: images.testImg },
+  ];
+
+  const imageCount = dataImg.length;
+
+  // ======================================================================> tạo ô chứa ảnh tạm
+  const handleImageChange = (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      const selectedFile = event.target.files[0];
+      setImageAvartar(selectedFile);
+      setSelectedImage((prevImages: any[]) =>
+        prevImages.concat(URL.createObjectURL(selectedFile))
+      );
+    }
+  };
+
+  console.log(selectedImage);
+
   return (
     <div className="MemberComponent">
       <div className="memberquantityTotal">
@@ -22,7 +47,7 @@ const MemberComponent: React.FC = () => {
       </div>
       {/* phần card bình luận */}
       <div className="memberContentHero">
-        <div className="showComment">
+        <div className="memberContent">
           <div className="Comment">
             <div>
               <div className="userComment">
@@ -38,10 +63,11 @@ const MemberComponent: React.FC = () => {
               <p>chúc mừng năm mới, merry chrismax </p>
             </div>
             <div className="imgComment">
-              <img src={images.dragon} alt="" />
-              <img src={images.dragon} alt="" />
-              <img src={images.dragon} alt="" />
-              <img src={images.dragon} alt="" />
+              <div className={`imgComment imgComment-${imageCount}`}>
+                {dataImg.map((image, index) => (
+                  <img key={index} src={image.src} alt={`Image ${index + 1}`} />
+                ))}
+              </div>
             </div>
 
             <div className="numberOfLikes">
@@ -85,33 +111,45 @@ const MemberComponent: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* phần nhập bình luận */}
-        <div className="memberContent">
-          <div className="imgShowTotal">
-            <div className="imgShow">
-              <div className="imgDelete">
-                <img src={images.Delete} alt="" />
+        <div className="memberContent1">
+          <div className="memberContentTotal">
+            {selectedImage.length > 0 && (
+              <div className="memberImg">
+                {selectedImage.map((image, index) => (
+                  <div className="imgShowTotal" key={index}>
+                    <div className="imgShow">
+                      <button className="imgDelete">
+                        <img src={images.Delete} alt="" />
+                      </button>
+                      <img src={image} alt="" />
+                    </div>
+                  </div>
+                ))}
               </div>
-              <img src={images.dragon} alt="" />
+            )}
+
+            <div className="memberComment">
+              <form action="" className="memberCommentForm">
+                <label htmlFor="avatar1">
+                  <input
+                    id="avatar1"
+                    type="file"
+                    name="image"
+                    onChange={handleImageChange}
+                  />
+                  <i className="fa-solid fa-paperclip"></i>
+                </label>
+
+                <input type="text" name="" id="" />
+                <button className="btnCommentForm">
+                  <i
+                    className="fa-solid fa-paper-plane fa-beat"
+                    style={{ color: "#ABBE67" }}
+                  />
+                </button>
+              </form>
             </div>
-          </div>
-
-          <div className="memberComment">
-            <form action="" className="memberCommentForm">
-              <label htmlFor="avatar1">
-                <input id="avatar1" type="file" name="image" />
-                <i className="fa-solid fa-paperclip"></i>
-              </label>
-
-              <input type="text" name="" id="" />
-              <button className="btnCommentForm">
-                <i
-                  className="fa-solid fa-paper-plane fa-beat"
-                  style={{ color: "#ABBE67" }}
-                />
-              </button>
-            </form>
           </div>
         </div>
       </div>

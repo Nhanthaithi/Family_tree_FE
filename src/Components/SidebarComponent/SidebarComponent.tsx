@@ -8,10 +8,16 @@ const SidebarComponent: React.FC<{ position: "left" | "right" }> = ({
 }) => {
   const [imageSrc, setImageSrc] = useState<string>("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const dataUser = localStorage.getItem("userLogin");
 
-  const menuItems = [
+  const menuItemsLogin = [
     { name: "THÔNG TIN TÀI KHOẢN", path: "/" },
     { name: "ĐĂNG XUẤT", path: "/auth/login" },
+  ];
+
+  const menuItemsNotLogin = [
+    { name: "ĐĂNG NHẬP", path: "/auth/login" },
+    { name: "ĐĂNG KÝ", path: "/auth/register" },
   ];
 
   //----------------------------------------------------------------> kiểm tra màn hình để xác định hình
@@ -62,7 +68,12 @@ const SidebarComponent: React.FC<{ position: "left" | "right" }> = ({
         <img src={imageSrc} />
       </div>
       <div className="MenuAccounts">
-        {isMenuVisible && <MenuHideComponent menuItems={menuItems} />}
+        {isMenuVisible &&
+          (dataUser === null ? (
+            <MenuHideComponent menuItems={menuItemsNotLogin} />
+          ) : (
+            <MenuHideComponent menuItems={menuItemsLogin} />
+          ))}
       </div>
     </div>
   );

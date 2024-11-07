@@ -212,6 +212,9 @@ const Register: React.FC = () => {
             <Link className="gotohome" to={"/auth/Login"}>
               ĐĂNG NHẬP
             </Link>
+            <Link className="gotohome" to={"/"}>
+              TRANG CHỦ
+            </Link>
           </div>
         </form>
       </div>

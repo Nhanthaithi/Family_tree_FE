@@ -64,22 +64,39 @@
 /* --------------------------------------> member Content */
 
 .memberContentHero {
-  display: grid;
-  grid-template-rows: 80% 20%; /* Chia hàng theo tỷ lệ 70-30 */
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: 2px solid #422e2d;
   border-radius: 20px;
   padding: 10px;
 }
 
-/* --------------------------------------> member Comment */
 .memberContent {
-  display: flex;
+  overflow-y: scroll;
+  max-height: 525px;
+}
 
+.memberContent::-webkit-scrollbar {
+  display: none; /* Ẩn thanh cuộn */
+}
+
+/* --------------------------------------> member Comment */
+.memberContent1 {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+.memberContentTotal {
+  display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 5px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0 0 20px 20px;
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.858);
-  border-radius: 20px;
 }
 
 .memberComment {
@@ -90,6 +107,10 @@
   border-radius: 20px;
   padding: 5px;
   height: 30px;
+}
+
+.memberImg {
+  display: flex;
 }
 
 .memberCommentForm {
@@ -139,31 +160,14 @@
   position: absolute;
   top: -7px;
   right: -7px;
-  width: 15px;
-  height: 15px;
+
   cursor: pointer;
 }
 
 .imgDelete > img {
-  width: 100%;
-  height: 100%;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
-  cursor: pointer;
-}
-
-.showComment {
-  display: flex;
-  max-height: 460px; /* Chiều cao tối đa cho div trên */
-  overflow-y: scroll; /* Cho phép cuộn dọc nếu nội dung vượt quá chiều cao */
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  border-radius: 20px;
-  padding: 2px;
-}
-
-.showComment::-webkit-scrollbar {
-  display: none; /* Ẩn thanh cuộn */
 }
 
 .Comment {
@@ -173,23 +177,68 @@
   padding: 10px;
 }
 
+/* +================================================= */
 .imgComment {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  gap: 5px;
   width: 100%;
+  box-sizing: border-box;
   background-color: #cdd3d3;
   border-radius: 10px;
   padding: 5px 5px;
 }
 
-.imgComment > img {
-  width: 80px;
+.imgComment img {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 100%;
+  height: 200px;
   object-fit: cover;
 }
+
+/* 1 hình - Chiếm toàn bộ */
+.imgComment-1 {
+  grid-template-columns: 1fr;
+  grid-template-areas: "img1";
+}
+
+/* 2 hình - mỗi hình chiếm 50% */
+.imgComment-2 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "img1 img2";
+}
+
+/* 3 hình - 2 hình trên chiếm 50%, 1 hình dưới chiếm 100% */
+.imgComment-3 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "img1 img2"
+    "img3 img3";
+}
+
+/* 4 hình - 2 hình trên và 2 hình dưới mỗi hình chiếm 50% */
+.imgComment-4 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "img1 img2"
+    "img3 img4";
+}
+
+.imgComment img:nth-child(1) {
+  grid-area: img1;
+}
+.imgComment img:nth-child(2) {
+  grid-area: img2;
+}
+.imgComment img:nth-child(3) {
+  grid-area: img3;
+}
+.imgComment img:nth-child(4) {
+  grid-area: img4;
+}
+
+/* ======================================================= */
 
 .userComment {
   display: flex;

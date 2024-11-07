@@ -245,6 +245,9 @@ const Login: React.FC = () => {
           <Link className="gotoregister" to={"/auth/register"}>
             ĐĂNG KÝ
           </Link>
+          <Link className="gotoregister" to={"/"}>
+            TRANG CHỦ
+          </Link>
           {statusformlogin === 1 ? (
             <button id="forgotPassword" onClick={() => setstatusform()}>
               QUÊN MẬT KHẨU
