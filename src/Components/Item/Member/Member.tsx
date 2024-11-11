@@ -17,7 +17,7 @@ const MemberComponent: React.FC = () => {
     typeImageVideo[]
   >([]);
   const [dataServer, setdataServer] = useState<typeGetArticle[]>([]);
-  const [ImageVideo, setImageVideo] = useState<typeGetArticle[]>([]);
+  const [ImageVideo, setImageVideo] = useState<File[]>([]);
   const [content, setcontent] = useState("");
   const [ErrorFile, setErrorFile] = useState("");
   const [flag, setFlag] = useState(false);
@@ -36,32 +36,37 @@ const MemberComponent: React.FC = () => {
   }, [flag]);
 
   // ======================================================================> tạo ô chứa ảnh video tạm
-  const handleImageChange = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const File = event.target.files;
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const files = Array.from(event.target.files); // Chuyển file list thành array
 
-      if (File) {
-        let totalSize = 0;
-        for (let i = 0; i < File.length; i++) {
-          totalSize += File[i].size;
-        }
-
-        const maxSize = 15 * 1024 * 1024; // Giới hạn dung lượng là 15MB
-        if (totalSize > maxSize) {
-          setErrorFile("Tổng dung lượng vượt quá 15MB");
-          return;
-        }
-        setErrorFile("");
-        const selectedFile = event.target.files[0];
-        const fileType = selectedFile.type.split("/")[0]; // "image" hoặc "video"
-        const fileUrl = URL.createObjectURL(selectedFile);
-        setSelectedImageVideo((prevImages: typeImageVideo[]) =>
-          prevImages.concat({ url: fileUrl, type: fileType })
-        );
-        setImageVideo((prevImages: typeGetArticle[]) =>
-          prevImages.concat(selectedFile)
-        );
+      // Kiểm tra tổng dung lượng
+      let totalSize = 0;
+      for (let i = 0; i < files.length; i++) {
+        totalSize += files[i].size;
       }
+
+      const maxSize = 15 * 1024 * 1024; // Giới hạn dung lượng là 15MB
+      if (totalSize > maxSize) {
+        setErrorFile("Tổng dung lượng vượt quá 15MB");
+        return;
+      }
+      setErrorFile("");
+
+      // Lấy URL tạm thời cho tất cả file đã chọn
+      const newSelectedFiles = files.map((file) => {
+        const fileType = file.type.split("/")[0]; // "image" hoặc "video"
+        const fileUrl = URL.createObjectURL(file);
+        return { url: fileUrl, type: fileType };
+      });
+
+      // Cập nhật state với danh sách file mới
+      setSelectedImageVideo((prevImages: typeImageVideo[]) => [
+        ...prevImages,
+        ...newSelectedFiles,
+      ]);
+
+      setImageVideo((prevImages: File[]) => [...prevImages, ...files]);
     }
   };
 
@@ -80,7 +85,7 @@ const MemberComponent: React.FC = () => {
     setSelectedImageVideo((prevImages: typeImageVideo[]) =>
       prevImages.filter((_, i) => i !== index)
     );
-    setImageVideo((prevImages: typeGetArticle[]) =>
+    setImageVideo((prevImages: File[]) =>
       prevImages.filter((_, i) => i !== index)
     );
     setErrorFile("");

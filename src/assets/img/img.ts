@@ -146,10 +146,4 @@ export const images = {
   get testImg() {
     return new URL("./testimg.jpg", import.meta.url).href;
   },
-  get testVideo() {
-    return new URL(
-      "./(Official MV) Gấp Đôi Yêu Thương - Tuấn Hưng.mp4",
-      import.meta.url
-    ).href;
-  },
 };
