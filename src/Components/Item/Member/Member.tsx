@@ -1,32 +1,283 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import "./Member.css";
 import { images } from "../../../assets/img/img";
+import {
+  typeGetArticle,
+  typeImageVideo,
+  typeMedia,
+} from "../../../types/types";
+import { axiosClient } from "../../../api/axiosClient";
+import { toast } from "react-toastify";
 
 const MemberComponent: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<string[]>([]);
-  const [imageAvartar, setImageAvartar] = useState("");
-  // =======================================================================> test hình ảnh thể hiện
-  const dataImg = [
-    { src: images.testImg },
-    { src: images.testImg },
-    { src: images.backgroud4 },
-    { src: images.testImg },
-  ];
+  const dataUser = localStorage.getItem("userLogin");
+  const userId = dataUser ? JSON.parse(dataUser)?.id : null;
+  const useRole = dataUser ? JSON.parse(dataUser)?.role : null;
+  const [selectedImageVideo, setSelectedImageVideo] = useState<
+    typeImageVideo[]
+  >([]);
+  const [dataServer, setdataServer] = useState<typeGetArticle[]>([]);
+  const [ImageVideo, setImageVideo] = useState<typeGetArticle[]>([]);
+  const [content, setcontent] = useState("");
+  const [ErrorFile, setErrorFile] = useState("");
+  const [flag, setFlag] = useState(false);
+  const [statusArticle, setstatusArticle] = useState(1);
+  const [idArticle, setidArticle] = useState<number | null>();
 
-  const imageCount = dataImg.length;
+  // ============================================================================================> hàm gọi data từ server
+  useEffect(() => {
+    const fetchDataFromServer = async () => {
+      const data = await axiosClient.get(`api/v1/Article/getAllArticle`);
+      setdataServer(data.data.data);
+      setFlag(false);
+    };
 
-  // ======================================================================> tạo ô chứa ảnh tạm
+    fetchDataFromServer();
+  }, [flag]);
+
+  // ======================================================================> tạo ô chứa ảnh video tạm
   const handleImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
-      const selectedFile = event.target.files[0];
-      setImageAvartar(selectedFile);
-      setSelectedImage((prevImages: any[]) =>
-        prevImages.concat(URL.createObjectURL(selectedFile))
-      );
+      const File = event.target.files;
+
+      if (File) {
+        let totalSize = 0;
+        for (let i = 0; i < File.length; i++) {
+          totalSize += File[i].size;
+        }
+
+        const maxSize = 15 * 1024 * 1024; // Giới hạn dung lượng là 15MB
+        if (totalSize > maxSize) {
+          setErrorFile("Tổng dung lượng vượt quá 15MB");
+          return;
+        }
+        setErrorFile("");
+        const selectedFile = event.target.files[0];
+        const fileType = selectedFile.type.split("/")[0]; // "image" hoặc "video"
+        const fileUrl = URL.createObjectURL(selectedFile);
+        setSelectedImageVideo((prevImages: typeImageVideo[]) =>
+          prevImages.concat({ url: fileUrl, type: fileType })
+        );
+        setImageVideo((prevImages: typeGetArticle[]) =>
+          prevImages.concat(selectedFile)
+        );
+      }
     }
   };
 
-  console.log(selectedImage);
+  useEffect(() => {
+    return () => {
+      selectedImageVideo.forEach((file) => {
+        if (file.url) {
+          URL.revokeObjectURL(file.url);
+        }
+      });
+    };
+  }, [flag]);
+
+  //  ======================================================================> xóa ảnh video trong ô chứa video và ảnh tạm
+  const handleDeleteImageVideo = (index: number) => {
+    setSelectedImageVideo((prevImages: typeImageVideo[]) =>
+      prevImages.filter((_, i) => i !== index)
+    );
+    setImageVideo((prevImages: typeGetArticle[]) =>
+      prevImages.filter((_, i) => i !== index)
+    );
+    setErrorFile("");
+  };
+
+  // ======================================================================> hàm change nội dung
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setcontent(e.target.value);
+  };
+
+  // ======================================================================> hàm add bài viết
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("content", content);
+    ImageVideo.forEach((file: any) => {
+      formData.append("mediaFiles", file);
+    });
+
+    try {
+      const data = await axiosClient.post(
+        `/api/v1/Article/postArticle`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setFlag(true);
+      setSelectedImageVideo([]);
+      setImageVideo([]);
+      setcontent("");
+      toast.success(data.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      toast.error("đăng bài dữ liệu thất bại", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+  const handleComment = (id: number | undefined) => {
+    setstatusArticle(2);
+    setidArticle(id);
+  };
+
+  const handlePostComment = async () => {
+    const dataForm = { content: content, userId: userId, postId: idArticle };
+    try {
+      const data = await axiosClient.post(
+        `/api/v1/Comment/postComment`,
+        dataForm
+      );
+      setFlag(true);
+      setcontent("");
+      setstatusArticle(1);
+      setidArticle(null);
+      toast.success(data.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      toast.error("đăng bình luận thất bại", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+  const handleLike = async (id: number | undefined) => {
+    const dataLike = { userId: userId, postId: id };
+    try {
+      await axiosClient.post(`/api/v1/Likes/postLike`, dataLike);
+      setFlag(true);
+    } catch (error) {}
+  };
+
+  const handleUnLike = async (id: number | undefined) => {
+    try {
+      await axiosClient.delete(`/api/v1/Likes/deleteLike/${id}`);
+      setFlag(true);
+    } catch (error) {}
+  };
+
+  const handleDeleteArticle = async (id: number | undefined) => {
+    try {
+      await axiosClient.delete(`/api/v1/Article/DeleteArticle/${id}`);
+      setFlag(true);
+    } catch (error) {}
+  };
+
+  const handleEditArticle = async (id: number | undefined) => {
+    try {
+      const data = await axiosClient.get(`/api/v1/Article/getOneArticle/${id}`);
+      const article = data.data.data;
+      setidArticle(article.id);
+      setcontent(article.content);
+      setSelectedImageVideo(article.mediaFiles);
+      setImageVideo(article.mediaFiles);
+      setstatusArticle(3);
+    } catch (error) {}
+  };
+
+  const handleDeleteComment = async (id: number | undefined) => {
+    try {
+      await axiosClient.delete(`/api/v1/Comment/DeleteComment/${id}`);
+      setFlag(true);
+    } catch (error) {}
+  };
+
+  const handlePostEditArticle = async () => {
+    const oldMediaFiles: any[] = [];
+
+    const formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("content", content);
+    ImageVideo.forEach((file: any) => {
+      if (file.id) {
+        oldMediaFiles.push(file);
+      } else {
+        formData.append("mediaFiles", file);
+      }
+    });
+    if (oldMediaFiles.length > 0) {
+      formData.append("oldMediaFiles", JSON.stringify(oldMediaFiles));
+    }
+
+    try {
+      const data = await axiosClient.patch(
+        `/api/v1/Article/patchArticle/${idArticle}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setFlag(true);
+      setSelectedImageVideo([]);
+      setImageVideo([]);
+      setcontent("");
+      setidArticle(null);
+      setstatusArticle(1);
+      toast.success(data.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      toast.error("sửa bài viết thất bại", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
 
   return (
     <div className="MemberComponent">
@@ -48,106 +299,274 @@ const MemberComponent: React.FC = () => {
       {/* phần card bình luận */}
       <div className="memberContentHero">
         <div className="memberContent">
-          <div className="Comment">
-            <div>
-              <div className="userComment">
-                <div className="imgAvataruserComent">
-                  <img src={images.Avatar} alt="" />
-                </div>
+          {dataServer &&
+            dataServer.map((item, index) => (
+              <div className="Comment" key={index}>
+                {item.user?.id === userId ? (
+                  <>
+                    <button
+                      className="btnDeleteArticle"
+                      onClick={() => handleDeleteArticle(item.id)}
+                    >
+                      <img
+                        src={images.Delete}
+                        alt=""
+                        width={"20px"}
+                        height={"20px"}
+                      />
+                    </button>
 
-                <p>
-                  <b>trần đăng khoa :</b>
-                </p>
-              </div>
+                    <button
+                      className="btnEditArticle"
+                      onClick={() => handleEditArticle(item.id)}
+                    >
+                      <img
+                        src={images.Edit}
+                        alt=""
+                        width={"20px"}
+                        height={"20px"}
+                      />
+                    </button>
+                  </>
+                ) : (
+                  ""
+                )}
 
-              <p>chúc mừng năm mới, merry chrismax </p>
-            </div>
-            <div className="imgComment">
-              <div className={`imgComment imgComment-${imageCount}`}>
-                {dataImg.map((image, index) => (
-                  <img key={index} src={image.src} alt={`Image ${index + 1}`} />
-                ))}
-              </div>
-            </div>
+                <div>
+                  <div className="userComment">
+                    {item.user?.imgavatar ? (
+                      <div className="imgAvataruserComent">
+                        <img src={item.user.imgavatar} alt="" />
+                      </div>
+                    ) : (
+                      <div className="imgAvataruserComent">
+                        <img src={images.Avatar} alt="" />
+                      </div>
+                    )}
 
-            <div className="numberOfLikes">
-              <p>
-                <b>5 lượt thích</b>
-              </p>
-
-              <p>
-                <b>5 lượt Bình luận</b>
-              </p>
-            </div>
-            <div className="btnLike">
-              <button>THÍCH</button>
-              <button>BÌNH LUẬN</button>
-            </div>
-            <div className="showCommentTotal">
-              <div className="CommentTitel">
-                <div className="CommentTitel1">
-                  <div className="showCommentAvartar">
-                    <img src={images.Avatar} alt="" />
+                    <p>
+                      <b>{item.user?.fullname} :</b>
+                    </p>
                   </div>
 
-                  <b>TRẦN ĐĂNG KHOA</b>
+                  <p>{item.content} </p>
                 </div>
-                <div className="CommentTitel2">
+
+                {item.mediaFiles && item.mediaFiles?.length > 0 ? (
+                  <div className="imgComment">
+                    <div
+                      className={`imgComment imgComment-${item.mediaFiles?.length}`}
+                    >
+                      {item?.mediaFiles?.map((media, index) => (
+                        <>
+                          {media.type === "video" ? (
+                            <video src={media.url} controls />
+                          ) : (
+                            <img src={media.url} alt={`Media ${index + 1}`} />
+                          )}
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+
+                <div className="numberOfLikes">
                   <p>
-                    hình đẹp quá Nếu vẫn không hoạt động, hãy thử kiểm tra trên
-                    các trình duyệt khác hoặc xóa bộ nhớ cache để đảm bảo không
-                    có vấn đề nào Nếu vẫn không hoạt động, hãy thử kiểm tra trên
-                    các trình duyệt khác hoặc xóa bộ nhớ cache để đảm bảo không
-                    có vấn đề nào do bộ nhớ cache của trình duyệt gây ra. do bộ
-                    nhớ cache của trình duyệt gây ra.hình đẹp quá Nếu vẫn không
-                    hoạt động, hãy thử kiểm tra trên các trình duyệt khác hoặc
-                    xóa bộ nhớ cache để đảm bảo không có vấn đề nào Nếu vẫn
-                    không hoạt động, hãy thử kiểm tra trên các trình duyệt khác
-                    hoặc xóa bộ nhớ cache để đảm bảo không có vấn đề nào do bộ
-                    nhớ cache của trình duyệt gây ra.
+                    <b>{item.likes?.length} Lượt thích</b>
+                  </p>
+
+                  <p>
+                    <b>{item.comments?.length} Lượt bình luận</b>
                   </p>
                 </div>
+                <div className="btnLike">
+                  <button
+                    onClick={() => {
+                      const hasLiked = item.likes?.some(
+                        (like) => like.IdUser === userId
+                      );
+                      const likeId = item.likes?.find(
+                        (like) => like.IdUser === userId
+                      )?.id;
+
+                      hasLiked ? handleUnLike(likeId) : handleLike(item.id);
+                    }}
+                  >
+                    {item.likes?.some((like) => like.IdUser === userId) ? (
+                      <>
+                        <i
+                          className="fa-solid fa-thumbs-up fa-lg"
+                          style={{ color: "#74C0FC" }}
+                        ></i>
+                        BỎ THÍCH
+                      </>
+                    ) : (
+                      <>
+                        <i
+                          className="fa-regular fa-thumbs-up fa-lg"
+                          style={{ color: "#74C0FC" }}
+                        ></i>
+                        THÍCH
+                      </>
+                    )}
+                  </button>
+                  <button onClick={() => handleComment(item.id)}>
+                    BÌNH LUẬN
+                  </button>
+                </div>
+                {item.comments && item.comments?.length > 0 ? (
+                  <div className="showCommentTotal">
+                    {item.comments?.map((comment) => (
+                      <div className="CommentTitel">
+                        {item.user?.id === userId ? (
+                          <button
+                            className="btnDeleteComment"
+                            onClick={() => handleDeleteComment(comment.id)}
+                          >
+                            <img
+                              src={images.Delete}
+                              alt=""
+                              width={"18px"}
+                              height={"18px"}
+                            />
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                        <div className="CommentTitel1">
+                          {item.user?.imgavatar ? (
+                            <div className="showCommentAvartar">
+                              <img src={item.user?.imgavatar} alt="" />
+                            </div>
+                          ) : (
+                            <div className="showCommentAvartar">
+                              <img src={images.Avatar} alt="" />
+                            </div>
+                          )}
+
+                          <b>{item.user?.fullname}</b>
+                        </div>
+
+                        <div className="CommentTitel2">
+                          <p>{comment.content}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-            </div>
-          </div>
+            ))}
         </div>
         {/* phần nhập bình luận */}
         <div className="memberContent1">
           <div className="memberContentTotal">
-            {selectedImage.length > 0 && (
-              <div className="memberImg">
-                {selectedImage.map((image, index) => (
-                  <div className="imgShowTotal" key={index}>
-                    <div className="imgShow">
-                      <button className="imgDelete">
-                        <img src={images.Delete} alt="" />
-                      </button>
-                      <img src={image} alt="" />
+            {ErrorFile && (
+              <p style={{ color: "red", margin: "0px" }}>{ErrorFile}</p>
+            )}
+            {selectedImageVideo.length > 0 && (
+              <>
+                <div className="memberImg">
+                  {selectedImageVideo.map((media, index) => (
+                    <div className="imgShowTotal" key={index}>
+                      <div className="imgShow">
+                        <button
+                          className="imgDelete"
+                          onClick={() => handleDeleteImageVideo(index)}
+                        >
+                          <img src={images.Delete} alt="" />
+                        </button>
+                        {media.type === "video" ? (
+                          <video src={media.url} controls />
+                        ) : (
+                          <img src={media.url} alt="Selected" />
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </>
             )}
 
             <div className="memberComment">
-              <form action="" className="memberCommentForm">
-                <label htmlFor="avatar1">
+              <form
+                action=""
+                className="memberCommentForm"
+                onSubmit={handleSubmit}
+              >
+                <label htmlFor="avatar1" style={{ cursor: "pointer" }}>
                   <input
                     id="avatar1"
                     type="file"
                     name="image"
+                    multiple
                     onChange={handleImageChange}
                   />
                   <i className="fa-solid fa-paperclip"></i>
                 </label>
 
-                <input type="text" name="" id="" />
-                <button className="btnCommentForm">
-                  <i
-                    className="fa-solid fa-paper-plane fa-beat"
-                    style={{ color: "#ABBE67" }}
-                  />
-                </button>
+                {statusArticle === 1 ? (
+                  <>
+                    <input
+                      type="text"
+                      name="content"
+                      placeholder="Bạn có muốn đăng gì đó không???"
+                      required
+                      value={content}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <button className="btnCommentForm" type="submit">
+                      <i
+                        className="fa-solid fa-paper-plane fa-xl"
+                        style={{ color: "#63E6BE" }}
+                      ></i>
+                    </button>
+                  </>
+                ) : statusArticle === 2 ? (
+                  <>
+                    <input
+                      type="text"
+                      name="content"
+                      placeholder="Bạn muốn bình luận gì vậy???"
+                      required
+                      value={content}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <button
+                      className="btnCommentForm"
+                      type="button"
+                      onClick={() => handlePostComment()}
+                    >
+                      <i
+                        className="fa-solid fa-paper-plane fa-xl"
+                        style={{ color: "#FFD43B" }}
+                      ></i>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      type="text"
+                      name="content"
+                      required
+                      value={content}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <button
+                      className="btnCommentForm"
+                      type="button"
+                      onClick={() => handlePostEditArticle()}
+                    >
+                      <i
+                        className="fa-solid fa-paper-plane fa-xl"
+                        style={{ color: "#E31D51" }}
+                      ></i>
+                    </button>
+                  </>
+                )}
               </form>
             </div>
           </div>

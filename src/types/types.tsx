@@ -1,6 +1,6 @@
 //========================================> type menu ẩn
 export interface MenuItem {
-  name: Date;
+  name: string;
   path: string;
 }
 
@@ -95,4 +95,46 @@ export interface typeCashTraking {
 export interface typeCashSearch {
   startDate?: string;
   endDate?: string;
+}
+
+//========================================> type phân loại hình và video
+export interface typeImageVideo {
+  name?: string;
+  size?: number;
+  lastModified?: number;
+  url?: string;
+  type?: string;
+}
+
+//========================================> type data service bài viết
+export interface typeGetArticle {
+  content?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  id?: number;
+  mediaFiles?: [{ type: string; url: string }];
+  likes?: [{ IdUser?: number; id?: number; createdAt?: string }];
+  comments?: [{ content?: string; id?: number }];
+  user?: {
+    Genealogy_id?: number;
+    createdAt?: string;
+    email?: string;
+    fullname?: string;
+    id?: number;
+    imgavatar?: string;
+    phoneNumber?: string;
+    role?: number;
+    updatedAt?: string;
+  };
+}
+
+//========================================> type hình ảnh
+export interface typeMedia {
+  lastModified?: number;
+  name?: string;
+  size?: number;
+  id?: number;
+  type?: string;
+  url?: string;
+  file?: string;
 }
