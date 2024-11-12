@@ -1,18 +1,21 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import "./Member.css";
 import { images } from "../../../assets/img/img";
-import {
-  typeGetArticle,
-  typeImageVideo,
-  typeMedia,
-} from "../../../types/types";
+import { typeGetArticle, typeImageVideo } from "../../../types/types";
 import { axiosClient } from "../../../api/axiosClient";
 import { toast } from "react-toastify";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import LoadingComponent from "../../Loading/Loading";
 
 const MemberComponent: React.FC = () => {
   const dataUser = localStorage.getItem("userLogin");
   const userId = dataUser ? JSON.parse(dataUser)?.id : null;
   const useRole = dataUser ? JSON.parse(dataUser)?.role : null;
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedImageVideo, setSelectedImageVideo] = useState<
     typeImageVideo[]
   >([]);
@@ -23,6 +26,11 @@ const MemberComponent: React.FC = () => {
   const [flag, setFlag] = useState(false);
   const [statusArticle, setstatusArticle] = useState(1);
   const [idArticle, setidArticle] = useState<number | null>();
+  const [currentPostId, setCurrentPostId] = useState<number | undefined>(
+    undefined
+  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   // ============================================================================================> hàm gọi data từ server
   useEffect(() => {
@@ -30,6 +38,7 @@ const MemberComponent: React.FC = () => {
       const data = await axiosClient.get(`api/v1/Article/getAllArticle`);
       setdataServer(data.data.data);
       setFlag(false);
+      setIsLoading(false);
     };
 
     fetchDataFromServer();
@@ -100,7 +109,7 @@ const MemberComponent: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("userId", userId);
     formData.append("content", content);
@@ -122,6 +131,7 @@ const MemberComponent: React.FC = () => {
       setSelectedImageVideo([]);
       setImageVideo([]);
       setcontent("");
+      setIsLoading(false);
       toast.success(data.data.message, {
         position: "top-right",
         autoClose: 2000,
@@ -152,6 +162,7 @@ const MemberComponent: React.FC = () => {
   };
 
   const handlePostComment = async () => {
+    setIsLoading(true);
     const dataForm = { content: content, userId: userId, postId: idArticle };
     try {
       const data = await axiosClient.post(
@@ -173,6 +184,7 @@ const MemberComponent: React.FC = () => {
         theme: "light",
       });
     } catch (error) {
+      setIsLoading(false);
       toast.error("đăng bình luận thất bại", {
         position: "top-right",
         autoClose: 2000,
@@ -187,28 +199,38 @@ const MemberComponent: React.FC = () => {
   };
 
   const handleLike = async (id: number | undefined) => {
+    setIsLoading(true);
     const dataLike = { userId: userId, postId: id };
     try {
       await axiosClient.post(`/api/v1/Likes/postLike`, dataLike);
       setFlag(true);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const handleUnLike = async (id: number | undefined) => {
+    setIsLoading(true);
     try {
       await axiosClient.delete(`/api/v1/Likes/deleteLike/${id}`);
       setFlag(true);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const handleDeleteArticle = async (id: number | undefined) => {
+    setIsLoading(true);
     try {
       await axiosClient.delete(`/api/v1/Article/DeleteArticle/${id}`);
       setFlag(true);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const handleEditArticle = async (id: number | undefined) => {
+    setIsLoading(true);
     try {
       const data = await axiosClient.get(`/api/v1/Article/getOneArticle/${id}`);
       const article = data.data.data;
@@ -217,17 +239,24 @@ const MemberComponent: React.FC = () => {
       setSelectedImageVideo(article.mediaFiles);
       setImageVideo(article.mediaFiles);
       setstatusArticle(3);
-    } catch (error) {}
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const handleDeleteComment = async (id: number | undefined) => {
+    setIsLoading(true);
     try {
       await axiosClient.delete(`/api/v1/Comment/DeleteComment/${id}`);
       setFlag(true);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const handlePostEditArticle = async () => {
+    setIsLoading(true);
     const oldMediaFiles: any[] = [];
 
     const formData = new FormData();
@@ -271,6 +300,7 @@ const MemberComponent: React.FC = () => {
         theme: "light",
       });
     } catch (error) {
+      setIsLoading(false);
       toast.error("sửa bài viết thất bại", {
         position: "top-right",
         autoClose: 2000,
@@ -284,8 +314,16 @@ const MemberComponent: React.FC = () => {
     }
   };
 
+  // =================================================================> đóng mở model slice
+  const handleImageClick = (postId: number | undefined, index: number) => {
+    setCurrentPostId(postId);
+    setCurrentIndex(index);
+    setIsOpen(true);
+  };
+
   return (
     <div className="MemberComponent">
+      {isLoading && <LoadingComponent />}
       <div className="memberquantityTotal">
         <div className="memberquantity1">
           <div className="memberquantity">
@@ -350,7 +388,7 @@ const MemberComponent: React.FC = () => {
                     )}
 
                     <p>
-                      <b>{item.user?.fullname} :</b>
+                      <b>{item.user?.fullname} </b>
                     </p>
                   </div>
 
@@ -360,18 +398,84 @@ const MemberComponent: React.FC = () => {
                 {item.mediaFiles && item.mediaFiles?.length > 0 ? (
                   <div className="imgComment">
                     <div
-                      className={`imgComment imgComment-${item.mediaFiles?.length}`}
+                      className={`imgComment imgComment-${Math.min(
+                        item.mediaFiles.length,
+                        4
+                      )}`}
                     >
-                      {item?.mediaFiles?.map((media, index) => (
-                        <>
+                      {item?.mediaFiles?.slice(0, 4).map((media, index) => (
+                        <div
+                          key={index}
+                          className={`mediaWrapper mediaWrapper-${index + 1}`}
+                          onClick={() => handleImageClick(item.id, index)}
+                        >
                           {media.type === "video" ? (
                             <video src={media.url} controls />
                           ) : (
                             <img src={media.url} alt={`Media ${index + 1}`} />
                           )}
-                        </>
+
+                          {/* Thêm overlay trên hình/video thứ 4 */}
+                          {item?.mediaFiles &&
+                            index === 3 &&
+                            item?.mediaFiles?.length > 4 && (
+                              <div className="overlay">
+                                +{item.mediaFiles.length - 4}
+                              </div>
+                            )}
+                        </div>
                       ))}
                     </div>
+                    {/* Modal với React Slick */}
+                    {isOpen && currentPostId === item.id && (
+                      <div
+                        className="modalOverlay"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <div
+                          className="modalContent"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Swiper
+                            initialSlide={currentIndex}
+                            spaceBetween={50}
+                            slidesPerView={1}
+                            navigation={true} // Thêm navigation
+                            modules={[Navigation]} // Đăng ký module Navigation
+                          >
+                            {item?.mediaFiles?.map((media, index) => (
+                              <SwiperSlide key={`${item.id}-media-${index}`}>
+                                {media.type === "video" ? (
+                                  <video
+                                    src={media.url}
+                                    controls
+                                    style={{ width: "100%", height: "auto" }}
+                                  />
+                                ) : (
+                                  <img
+                                    src={media.url}
+                                    alt={`Media ${index + 1}`}
+                                    style={{
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                      maxHeight: "90vh",
+                                    }}
+                                  />
+                                )}
+                              </SwiperSlide>
+                            ))}
+                          </Swiper>
+
+                          <button
+                            className="closeButton"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            &times;
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   ""
@@ -423,8 +527,8 @@ const MemberComponent: React.FC = () => {
                 </div>
                 {item.comments && item.comments?.length > 0 ? (
                   <div className="showCommentTotal">
-                    {item.comments?.map((comment) => (
-                      <div className="CommentTitel">
+                    {item.comments?.map((comment, index) => (
+                      <div className="CommentTitel" key={index}>
                         {item.user?.id === userId ? (
                           <button
                             className="btnDeleteComment"

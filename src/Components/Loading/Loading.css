@@ -1,0 +1,55 @@
+.image-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.79);
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.rotating-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  animation: rotate 5s linear infinite;
+  position: relative;
+  z-index: 2;
+}
+
+/* Làn sóng */
+.wave-effect {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5);
+  animation: wave 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Animation xoay hình ảnh */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation cho làn sóng */
+@keyframes wave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}

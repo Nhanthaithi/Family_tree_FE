@@ -221,25 +221,90 @@
   gap: 5px;
   width: 100%;
   box-sizing: border-box;
-  background-color: #cdd3d3;
+  background-color: #f0f2f5;
   border-radius: 10px;
   padding: 5px 5px;
 }
 
 .imgComment img {
-  border: 1px solid black;
-  border-radius: 10px;
   width: 100%;
   height: 150px;
+  border-radius: 10px;
   object-fit: cover;
 }
 
 .imgComment video {
-  border: 1px solid black;
-  border-radius: 10px;
   width: 100%;
   height: 150px;
+  border-radius: 10px;
   object-fit: cover;
+}
+
+.mediaWrapper {
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
+
+/* =============================================thử */
+/* CSS cho modal hiển thị ảnh */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent img,
+.modalContent video {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* =============================================== */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  pointer-events: none;
 }
 
 /* 1 hình - Chiếm toàn bộ */
@@ -271,21 +336,62 @@
     "img3 img4";
 }
 
-.imgComment img:nth-child(1),
-.imgComment video:nth-child(1) {
+.mediaWrapper-1 {
   grid-area: img1;
 }
-.imgComment img:nth-child(2),
-.imgComment video:nth-child(2) {
+.mediaWrapper-2 {
   grid-area: img2;
 }
-.imgComment img:nth-child(3),
-.imgComment video:nth-child(3) {
+.mediaWrapper-3 {
   grid-area: img3;
 }
-.imgComment img:nth-child(4),
-.imgComment video:nth-child(4) {
+.mediaWrapper-4 {
   grid-area: img4;
+}
+
+/* =======================================================> slice*/
+
+/* CSS cho modal hiển thị ảnh */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  width: 80%;
+  max-width: 1000px;
+  max-height: 90%;
+  background-color: #f4efef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.modalContent img,
+.modalContent video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: rgb(255, 0, 0);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
 }
 
 /* ======================================================= */
